@@ -1,0 +1,90 @@
+<% include ../partials/head %>
+
+    <div class="container">
+        <div class="row p-2">
+            <!-- Products -->
+            <% for(var i= 0; i< productos.length;i++) {  %>
+                <div class="col-md-4">
+                    <div class="p-4">
+                        <div class="card text-center">
+                            <img src="<%= productos[i].cover %>"
+                             class="card-img-top w-100 h-75">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <%= productos[i].name%>
+                                </h3>
+                                <p class="card-text">
+                                    <%= productos[i].category%>                                    
+                                </p>
+                                <p class="card-text">
+                                    <%= productos[i].price%>                                    
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <div class="row">
+            <% if(pages){ %>
+                <nav class="mx-auto">
+                    <ul class="pagination">
+                        <!-- First page -->
+                        <% if(current==1){ %>
+                            <li class="page-item disabled">
+                                <a href="#" class="page-link">First page</a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                                <a href="/products/1" class="page-link">First page</a>
+                            </li>
+                        <% } %>
+
+                        <!-- Pages -->
+                        <% var i = (Number(current)>5 ? Number(current) -4 : 1) %>
+                        <% if(i !== 1){ %>
+                            <a href="#" class="page-link">...</a>
+                        <% } %>
+                        <% for(; i<= (Number(current) + 4) && i<= pages; i++){ %>
+                            <% if(i == current) { %>
+                                <li class="page-item">
+                                    <a href="<%=i%>" class="page-link">
+                                        <%= i %>
+                                    </a>
+                                </li>
+                            <% } else { %>
+                            <li class="page-item">
+                                <a href="/products/<%=i%>" class="page-link">
+                                    <%= i %>
+                                </a>
+                            </li>
+                        <% } %>
+                        <% if(i == Number(current) + 4 && i < pages) {%>
+                            <li class="page-item">
+                                <a href="/products/<%=i%>" class="page-link">
+                                    ...
+                                </a>
+                            </li>
+                        <% } %>
+                        <% } %>
+
+                       
+
+                        <!-- Last pages -->
+                        <% if(current == pages){ %>
+                            <li class="page-item disabled">
+                                <a href="#" class="page-link">Last page</a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                                <a href="/products/<%=pages%>" class="page-link">Last page</a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </nav>
+            <% } %>
+        </div>
+    </div>
+
+<% include ../partials/footer %>
+    
